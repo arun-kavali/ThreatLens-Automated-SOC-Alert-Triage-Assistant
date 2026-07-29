@@ -1,171 +1,354 @@
 # 🚨 ThreatLens – AI-Powered SOC Alert Triage & Incident Intelligence Platform
 
-[![Live Demo](https://img.shields.io/badge/Live_Demo-Vercel-blue?style=for-the-badge&logo=vercel)](https://threatlens-automated-soc.vercel.app/)
-[![GitHub Repository](https://img.shields.io/badge/GitHub-Repository-black?style=for-the-badge&logo=github)](https://github.com/arun-kavali/ThreatLens-automated-soc-alert-triage-assistant)
-[![Supabase](https://img.shields.io/badge/Supabase-Database_%26_Edge_Functions-green?style=for-the-badge&logo=supabase)](https://supabase.com)
-[![React](https://img.shields.io/badge/React-18_TypeScript-61DAFB?style=for-the-badge&logo=react)](https://react.dev)
+<p align="center">
+  <a href="https://threatlens-automated-soc.vercel.app/" target="_blank">
+    <img src="https://img.shields.io/badge/Live%20Demo-Vercel-000000?style=for-the-badge&logo=vercel" />
+  </a>
+  <a href="https://github.com/arun-kavali/ThreatLens-automated-soc-alert-triage-assistant" target="_blank">
+    <img src="https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github" />
+  </a>
+  <img src="https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react" />
+  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript" />
+  <img src="https://img.shields.io/badge/Supabase-Backend-3ECF8E?style=for-the-badge&logo=supabase" />
+  <img src="https://img.shields.io/badge/OpenAI-AI-412991?style=for-the-badge&logo=openai" />
+</p>
 
 ---
 
-## 📌 Project Overview
+# 📌 Overview
 
-**ThreatLens** is an enterprise-grade, AI-powered Security Operations Center (SOC) platform engineered to solve alert fatigue and streamline threat triage. It simulates real-world SOC operations by ingesting security alerts, performing automated risk scoring and classification via AI, correlating related telemetry into high-fidelity incidents, and providing actionable containment playbooks for security analysts.
+**ThreatLens** is an AI-powered Security Operations Center (SOC) platform that automates security alert triage, incident correlation, and investigation workflows.
 
----
+The platform simulates real-world SOC operations by ingesting security alerts, analyzing them with AI, automatically correlating related events into security incidents, and providing analysts with actionable investigation intelligence.
 
-## ✨ Key Features
-
-- **Automated Alert Ingestion**: Multi-source log ingestion (SIEM, EDR, Network, Auth).
-- **AI Triage & Deterministic Risk Scoring**: Hybrid scoring engine evaluating asset criticality, privilege flags, external IP indicators, and AI threat explanations.
-- **Multi-Vector Incident Correlation Engine**: Automatically groups related alerts into unified incidents based on shared IPs, identities, targeted assets, and risk thresholds.
-- **AI Incident Intelligence Reports**: Generates structured attack chain summaries, business impact assessments, priority levels (P1/P2/P3), and containment steps.
-- **Real-Time SOC Dashboard**: Live monitoring via Supabase Realtime for active incidents, severity distributions, and system health statistics.
-- **Role-Based Access Control (RBAC)**: Secure access separation for `admin`, `analyst`, and `alert_source` roles with Postgres Row Level Security (RLS).
-- **External Database Synchronization**: Configurable ingestion workers (`ingest-external-alerts`) for polling external PostgreSQL security databases.
-- **Resilient Fallback Engine**: Rule-based fallback mechanisms ensure SOC operations continue without interruption if AI providers are unreachable.
+Its primary objective is to reduce alert fatigue, accelerate incident response, and improve analyst productivity through intelligent automation.
 
 ---
 
-## 🏗️ Technology Stack
+# ✨ Key Features
 
-- **Frontend**: React 18, TypeScript, Vite, Tailwind CSS, Shadcn UI, Lucide Icons, Recharts.
-- **State Management & Caching**: TanStack React Query (`@tanstack/react-query`).
-- **Backend & Database**: PostgreSQL 17 on Supabase (`llgbobnhvnufyawlcwbj`), Supabase Auth, Supabase Realtime, Supabase Storage.
-- **Extensions**: `pg_net` (async Edge Function invocation via SQL triggers) and `pg_cron` (scheduled health checks).
-- **AI Integrations**: OpenAI API & Lovable AI Gateway (`gpt-4o-mini` / `gemini-3-flash-preview`).
-- **Deployment**: Vercel (Frontend) & Supabase Edge Functions (Deno Runtime).
+### 🚨 AI-Powered Alert Analysis
+- Automated security alert classification
+- AI-generated threat explanations
+- Risk scoring and severity assessment
+- Context-aware security recommendations
+
+### 🔗 Automated Incident Correlation
+- Groups related alerts into incidents
+- Correlates events using:
+  - Source IP
+  - User Identity
+  - Target Asset
+  - Risk Score
+- Eliminates manual alert correlation
+
+### 🧠 AI Incident Intelligence
+Generates:
+
+- Threat Summary
+- Attack Pattern Analysis
+- Business Impact Assessment
+- Incident Priority
+- Containment Recommendations
+- Investigation Guidance
+
+### 📊 SOC Dashboard
+
+Monitor security operations through real-time analytics:
+
+- Total Alerts
+- Active Incidents
+- Resolved Incidents
+- Severity Distribution
+- Investigation Status
+- Security Health Metrics
+
+### 🔐 Authentication & Role-Based Access
+
+Secure authentication powered by Supabase Auth with Role-Based Access Control (RBAC).
+
+Supported roles:
+
+- Admin
+- SOC Analyst
+- Alert Source
+
+### ⚡ Real-Time Updates
+
+Built using Supabase Realtime for live synchronization of:
+
+- Alerts
+- Incidents
+- Dashboard Metrics
+- Investigation Status
+
+### 🛡 Rule-Based Fallback Engine
+
+If AI services are unavailable, ThreatLens automatically switches to deterministic rule-based processing for:
+
+- Risk Scoring
+- Severity Assignment
+- Incident Summaries
+
+ensuring uninterrupted SOC operations.
 
 ---
 
-## 🔄 System Architecture & Workflow
+# 🏗 Technology Stack
 
+## Frontend
+
+- React 18
+- TypeScript
+- Vite
+- Tailwind CSS
+- shadcn/ui
+- React Query
+- Recharts
+- Lucide Icons
+
+## Backend
+
+- Supabase
+- PostgreSQL
+- Supabase Auth
+- Supabase Storage
+- Supabase Realtime
+- Supabase Edge Functions
+
+## Artificial Intelligence
+
+- OpenAI API
+- AI-powered Security Analysis
+- Incident Intelligence Generation
+
+## Deployment
+
+- Vercel
+- Supabase Cloud
+
+---
+
+# 🔄 System Workflow
+
+```text
+Security Alert Sources
+        │
+        ▼
+Alert Ingestion
+        │
+        ▼
+Supabase Database
+        │
+        ▼
+AI Alert Analysis
+        │
+        ▼
+Risk Scoring & Severity Classification
+        │
+        ▼
+Incident Correlation Engine
+        │
+        ▼
+Automatic Incident Creation
+        │
+        ▼
+SOC Dashboard
+        │
+        ▼
+Security Investigation
+        │
+        ▼
+Incident Resolution
 ```
-[Security Alert Sources] ──> [Supabase Database (public.alerts)]
-                                         │
-                         (Trigger: on_alert_inserted via pg_net)
-                                         ▼
-                             [analyze-alert Edge Function]
-                                         │├── Deterministic Risk Engine
-                                         │└── OpenAI / AI Analysis
-                                         ▼
-                            [process-alerts Edge Function]
-                                         │├── Correlation Rules (IP/User/Asset/Risk)
-                                         └── Incident Creation (public.incidents)
-                                         ▼
-                          [Supabase Realtime Channel]
-                                         ▼
-                          [React SOC Dashboard (UI)]
+
+---
+
+# 📂 Project Structure
+
+```text
+ThreatLens/
+│
+├── public/
+├── src/
+│   ├── components/
+│   ├── contexts/
+│   ├── hooks/
+│   ├── integrations/
+│   ├── lib/
+│   ├── pages/
+│   ├── services/
+│   ├── types/
+│   └── utils/
+│
+├── supabase/
+│   ├── functions/
+│   └── migrations/
+│
+├── .env.example
+├── package.json
+├── vite.config.ts
+└── README.md
 ```
 
 ---
 
-## 🚀 Getting Started & Local Development
+# 🚀 Getting Started
 
-### Prerequisites
-- Node.js `v18+` or `v20+`
-- npm `v9+`
-- Supabase CLI (optional for local edge function testing)
+## Prerequisites
 
-### 1. Clone Repository
+- Node.js 18+
+- npm
+- Supabase Project
+
+---
+
+## Clone Repository
+
 ```bash
 git clone https://github.com/arun-kavali/ThreatLens-automated-soc-alert-triage-assistant.git
+
 cd ThreatLens-automated-soc-alert-triage-assistant
 ```
 
-### 2. Install Dependencies
+---
+
+## Install Dependencies
+
 ```bash
 npm install
 ```
 
-### 3. Environment Variables Setup
-Copy `.env.example` to `.env`:
-```bash
-cp .env.example .env
-```
-Fill in your Supabase credentials:
+---
+
+## Configure Environment Variables
+
+Create a `.env` file in the project root.
+
 ```env
-VITE_SUPABASE_URL=https://llgbobnhvnufyawlcwbj.supabase.co
+VITE_SUPABASE_URL=https://your-project.supabase.co
+
 VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+
 VITE_SUPABASE_PUBLISHABLE_KEY=your_supabase_publishable_key
-OPENAI_API_KEY=your_openai_api_key
 ```
 
-### 4. Run Development Server
-```bash
-npm run dev
-```
-Open `http://localhost:5173` in your browser.
+> **Note:** The OpenAI API key should be stored as a **Supabase Edge Function Secret**. It is **not required** in the frontend unless your application directly calls the OpenAI API from the client.
 
 ---
 
-## 🗄️ Supabase Setup & Database Migrations
+## Deploy Edge Functions
 
-### Apply Migrations
-All schema definitions, RLS policies, enums, and functions are located in `supabase/migrations/`. Apply them via the Supabase CLI or SQL Editor:
 ```bash
-npx supabase db push
-```
+npx supabase functions deploy analyze-alert
 
-### Database Tables Summary
-1. `profiles`: User profile metadata linked to `auth.users`.
-2. `user_roles`: User role mapping (`admin`, `analyst`, `alert_source`).
-3. `alerts`: Security alert telemetry and risk scores.
-4. `incidents`: Correlated security incidents.
-5. `alert_incident_map`: Junction mapping between alerts and incidents.
-6. `incident_activity`: Audit log of analyst triage actions.
-7. `db_connections`: External database connector credentials.
-8. `external_alert_log`: External alert deduplication log.
+npx supabase functions deploy process-alerts
+
+npx supabase functions deploy generate-incident-summary
+
+npx supabase functions deploy health-summary
+
+npx supabase functions deploy ingest-external-alerts
+
+npx supabase functions deploy db-connect
+```
 
 ---
 
-## ⚡ Edge Function Deployment
+## Configure Edge Function Secrets
 
-Deploy all 6 Edge Functions to your Supabase project:
-
-```bash
-npx supabase functions deploy analyze-alert --no-verify-jwt
-npx supabase functions deploy process-alerts --no-verify-jwt
-npx supabase functions deploy generate-incident-summary --no-verify-jwt
-npx supabase functions deploy health-summary --no-verify-jwt
-npx supabase functions deploy ingest-external-alerts --no-verify-jwt
-npx supabase functions deploy db-connect --no-verify-jwt
-```
-
-### Configure Edge Function Secrets
 ```bash
 npx supabase secrets set OPENAI_API_KEY=your_openai_api_key
 ```
 
 ---
 
-## 📦 Production Build
-
-Validate TypeScript, linting, and build the production bundle:
+## Start Development Server
 
 ```bash
-# Run Linter
-npm run lint
+npm run dev
+```
 
-# Production Build
+---
+
+## Production Build
+
+```bash
 npm run build
+```
 
-# Preview Production Build Locally
+Preview production build locally:
+
+```bash
 npm run preview
 ```
 
 ---
 
-## 🌐 Live Demo & Repository Metadata
+# 📊 Core Platform Capabilities
 
-- **Live Demo**: [https://threatlens-automated-soc.vercel.app/](https://threatlens-automated-soc.vercel.app/)
-- **GitHub Repository**: [https://github.com/arun-kavali/ThreatLens-automated-soc-alert-triage-assistant](https://github.com/arun-kavali/ThreatLens-automated-soc-alert-triage-assistant)
-- **GitHub Description**: 🚨 AI-Powered SOC Alert Triage & Incident Intelligence Platform built with React 18, TypeScript, Supabase, Tailwind CSS, and OpenAI. Features automated risk scoring, multi-vector correlation, and real-time incident investigation playbooks.
-- **GitHub Topics**: `cybersecurity`, `soc-automation`, `alert-triage`, `incident-response`, `ai-security`, `supabase`, `react`, `typescript`, `tailwindcss`, `openai`
+ThreatLens can simulate and process:
+
+- Phishing Alerts
+- Malware Detection
+- Brute Force Attempts
+- Credential Abuse
+- Suspicious Logins
+- Unauthorized Access Attempts
+- Network Intrusions
+- Insider Threat Indicators
 
 ---
 
-## 👨‍💻 Author & Maintainer
+# 🔐 Security Highlights
 
-**Arun Kavali**  
-Senior Software & Cybersecurity Engineer  
-[GitHub Profile](https://github.com/arun-kavali)
+- Supabase Authentication
+- Role-Based Access Control (RBAC)
+- PostgreSQL Row Level Security (RLS)
+- Secure Edge Functions
+- Protected API Endpoints
+- Real-Time Event Processing
+- Private Storage Buckets
+- Production-Ready Backend Architecture
+
+---
+
+# 🌐 Live Demo
+
+### 🚀 Application
+
+https://threatlens-automated-soc.vercel.app/
+
+---
+
+# 📁 GitHub Repository
+
+https://github.com/arun-kavali/ThreatLens-automated-soc-alert-triage-assistant
+
+---
+
+# 👨‍💻 Author
+
+## Arun Kavali
+
+Final Year Computer Science Engineering Student
+
+Passionate about:
+
+- Artificial Intelligence
+- Cybersecurity
+- Security Operations (SOC)
+- Full Stack Development
+- Cloud Computing
+
+GitHub:
+
+https://github.com/arun-kavali
+
+---
+
+# ⭐ Project Vision
+
+ThreatLens demonstrates how Artificial Intelligence can modernize Security Operations Centers by automating repetitive workflows, reducing alert fatigue, accelerating incident response, and enabling analysts to focus on high-priority threats.
+
+The project showcases an end-to-end AI-assisted SOC workflow built using modern cloud-native technologies and production-ready development practices.
