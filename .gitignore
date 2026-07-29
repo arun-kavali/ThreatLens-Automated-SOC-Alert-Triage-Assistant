@@ -25,3 +25,8 @@ dist-ssr
 
 # Environment Variables
 .env
+.env*.local
+
+# Temporary files
+supabase/.temp/
+

@@ -112,7 +112,7 @@ export function IncidentDetailModal({ incident, open, onOpenChange }: IncidentDe
     if (needsSummary && isInvestigating && !summaryLoading) {
       generateSummary(incident.id);
     }
-  }, [incident?.id, open, isAnalyst, incident?.ai_summary, summary, localStatus, summaryLoading, generateSummary]);
+  }, [incident, open, isAnalyst, summary, localStatus, summaryLoading, generateSummary]);
 
   if (!incident) return null;
 

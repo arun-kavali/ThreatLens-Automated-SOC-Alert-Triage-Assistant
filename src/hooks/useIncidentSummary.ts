@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
-import { supabase } from "@/integrations/supabase/client";
+import { supabase, SUPABASE_URL } from "@/integrations/supabase/client";
 import { useQueryClient } from "@tanstack/react-query";
 
 interface SummaryResult {
@@ -51,10 +51,8 @@ export function useIncidentSummary(incidentId: string | undefined, initialSummar
         throw new Error("Not authenticated");
       }
 
-      console.log("Generating AI summary for incident:", incidentIdToGenerate);
-
       const response = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/generate-incident-summary`,
+        `${SUPABASE_URL}/functions/v1/generate-incident-summary`,
         {
           method: "POST",
           headers: {
@@ -71,7 +69,6 @@ export function useIncidentSummary(incidentId: string | undefined, initialSummar
       }
 
       const result: SummaryResult = await response.json();
-      console.log("AI summary received:", result.cached ? "from cache" : "newly generated");
       
       setSummary(result.summary);
       setIsAIUsed(result.ai_used);

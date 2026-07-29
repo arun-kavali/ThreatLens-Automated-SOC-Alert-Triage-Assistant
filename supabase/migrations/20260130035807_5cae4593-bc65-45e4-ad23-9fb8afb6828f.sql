@@ -52,23 +52,22 @@ BEGIN
   supabase_url := current_setting('app.settings.supabase_url', true);
   service_key := current_setting('app.settings.service_role_key', true);
   
-  -- If pg_net is available, call the analyze-alert edge function
-  -- This is a best-effort call - if it fails, the cron job will pick it up
-  BEGIN
-    PERFORM net.http_post(
-      url := 'https://ptohzzgcexxwuxukjiuz.supabase.co/functions/v1/analyze-alert',
-      headers := jsonb_build_object(
-        'Content-Type', 'application/json',
-        'Authorization', 'Bearer ' || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB0b2h6emdjZXh4d3V4dWtqaXV6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY2NDI1MTcsImV4cCI6MjA4MjIxODUxN30.Nrj0SyUzbU8KMe4NvvIVhqYfM_Ugrc79EuRAn3yCKW8'
-      ),
-      body := jsonb_build_object(
-        'alert', row_to_json(NEW)
-      )
-    );
-  EXCEPTION WHEN OTHERS THEN
-    -- Silently fail - cron job will handle unprocessed alerts
-    NULL;
-  END;
+  IF supabase_url IS NOT NULL AND service_key IS NOT NULL THEN
+    BEGIN
+      PERFORM net.http_post(
+        url := supabase_url || '/functions/v1/analyze-alert',
+        headers := jsonb_build_object(
+          'Content-Type', 'application/json',
+          'Authorization', 'Bearer ' || service_key
+        ),
+        body := jsonb_build_object(
+          'alert', row_to_json(NEW)
+        )
+      );
+    EXCEPTION WHEN OTHERS THEN
+      NULL;
+    END;
+  END IF;
   
   RETURN NEW;
 END;

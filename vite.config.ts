@@ -15,4 +15,17 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  build: {
+    chunkSizeWarningLimit: 1200,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ["react", "react-dom", "react-router-dom"],
+          recharts: ["recharts"],
+          supabase: ["@supabase/supabase-js", "@tanstack/react-query"],
+          lucide: ["lucide-react"],
+        },
+      },
+    },
+  },
 }));
